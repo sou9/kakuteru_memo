@@ -1,4 +1,10 @@
-class MainActivity :AppCompatActivity() {
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.websarva.wings.android.databasesample.R
+
+class MainActivity : AppCompatActivity(){
     /**
      * 選択されたカクテルの主キーIDを表すフィールド
      */
@@ -6,30 +12,32 @@ class MainActivity :AppCompatActivity() {
     /**
      * 選択されたカクテル名を表すフィールド
      */
-    private var _cocktaiName = ""
+    private var _cocktailName = ""
 
-    override fun onCreate(savedeInstanceState: Bundle?) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //カクテルリスト用ListView(lvCocktail)を取得
         val lvCocktail = findViewById<ListView>(R.id.lvCocktail)
-        //ｌｖCocktailにリスナを登録
-        lvCocktail.onItemClickListener = ListItemClickListener()
+        //lvCocktailにリスナを登録
+       lvCocktail.onItemClickListener = ListItemClickListener()
     }
 
     /**
      * 保存ボタンがタップされた時の処理メソッド
      */
-    fun onSaveButtonClick(view: view) {
+
+    fun onSaveButtonClick(view: View) {
         //感想欄を取得
         val etNote = findViewById<EditText>(R.id.etNote)
         //感想欄の入力値を消去
         etNote.setText("")
         //カクテル名を表示するTextViewを取得
-        val tvCocktaiName = findViewById<TextView>(R.id.tvCocktaiName)
+        val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
         //カクテル名を「未選択」に変更
-        tvCocktaiName.text = getString(R.string.tv_name)
+        tvCocktailName.text = getString(R.string.tv_name)
         //保存ボタンを取得
         val btnSave = findViewById<Button>(R.id.btnSave)
         //保存ボタンをタップできないように変更
@@ -39,16 +47,16 @@ class MainActivity :AppCompatActivity() {
     /**
      * リストがタップされたときの処理が記述されたメンバクラス
      */
-    private inner class ListItemClickListener : AdapteyView.OnItemClickListener {
-        override fun onItemClick(parent: AdapterView<*>, view: view, position: Int, id: Long) {
+    private inner class ListItemClickListener : AdapterView.OnItemClickListener{
+        override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
             //タップされた行番号をフィールドの主キーIDに代入
-            _cocktaiId = position
+            _cocktailId = position
             //タップされた行のデータを取得。これがカクテル名となるので、フィールドに代入
             _cocktailName = parent.getItemAtPosition(position) as String
             //カクテル名を表示するText Viewを取得
-            var tvCocktaiName = findViewById<TextView>(R.idd.tvCocktailNAme)
+            val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
             //カクテル名を表示するText Viewに表示カクテル名を設定
-            tvCocktaiName.text = _cocktailName
+            tvCocktailName.text = _cocktailName
             //保存ボタンを取得
             val btnSave = findViewById<Button>(R.id.btnSave)
             //保存ボタンをタップできるように設定
